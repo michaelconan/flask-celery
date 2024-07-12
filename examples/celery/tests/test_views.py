@@ -5,24 +5,17 @@ This module demonstrates how to use pytest to unit test Flask views with the Fla
 """
 
 import pytest
-from src.task_app import create_app, tasks
-
-
-@pytest.fixture()
-def app():
-    app = create_app()
-    app.config.update({
-        "TESTING": True,
-    })
-
-    yield app
-
-
-@pytest.fixture()
-def client(app):
-    return app.test_client()
+from src.task_app import tasks
 
 
 def test_request_example(client):
-    response = client.get("/")
+    """ Unit test to validate index page view
+    """
+    # GIVEN
+    route = "/"
+
+    # WHEN
+    response = client.get(route)
+
+    # THEN
     assert b"<h2>Celery Example</h2>" in response.data

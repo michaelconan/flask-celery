@@ -5,19 +5,18 @@ This module demonstrates how to use pytest to unit test Celery tasks with the Fl
 """
 
 import pytest
-from src.task_app import create_app, tasks
-
-
-@pytest.fixture()
-def app():
-    app = create_app()
-    app.config.update({
-        "TESTING": True,
-    })
-
-    yield app
+from src.task_app import tasks
 
 
 def test_add_task(app):
-    result = tasks.add(1, 2)
+    """ Unit test to validate the celery add task
+    """
+    # GIVEN
+    number1 = 1
+    number2 = 2
+
+    # WHEN
+    result = tasks.add(number1, number2)
+
+    # THEN
     assert result == 3
